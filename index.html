@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conteo de Inventario por Filas</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div id="floatingDots" class="floating-dots" aria-hidden="true"></div>
+  <main class="app">
+    <header class="hero">
+      <div class="brand">
+        <div class="brand-logo-shell">
+          <img class="brand-logo" src="./logo_sancamilo.png" alt="San Camilo" />
+        </div>
+        <div class="brand-copy">
+          <h1>Conteo fisico por filas</h1>
+          <p>Carga el Excel, captura conteo fisico y exporta diferencias automaticamente.</p>
+        </div>
+      </div>
+    </header>
+
+    <button id="toggleControlsTab" class="controls-tab" type="button" hidden>Mostrar carga de archivo</button>
+
+    <section class="card controls" id="controlsSection">
+      <label for="fileInput" class="file-label">Seleccionar archivo Excel (.xlsx)</label>
+      <div id="fileDropZone" class="file-drop-zone" tabindex="0" role="button" aria-label="Zona para cargar archivo Excel">
+        <input id="fileInput" type="file" accept=".xlsx,.xls" />
+        <p class="drop-title">Arrastra y suelta tu archivo aqui</p>
+        <p class="drop-subtitle">o usa el boton para elegirlo manualmente</p>
+        <div class="drop-actions">
+          <button id="chooseFileBtn" type="button">Elegir archivo</button>
+          <span id="selectedFileText" class="selected-file">No se eligio ningun archivo</span>
+        </div>
+      </div>
+      <div id="fileMeta" class="muted">No hay archivo cargado.</div>
+
+      <div class="action-row operation-buttons">
+        <button id="saveBtn" type="button" disabled>Guardar avance local</button>
+        <button id="restoreBtn" type="button" disabled>Restaurar avance</button>
+        <button id="clearBtn" type="button" disabled>Limpiar avance</button>
+        <button id="exportBtn" type="button" disabled>Exportar resultados</button>
+      </div>
+    </section>
+
+    <section class="card" id="globalStatsSection" hidden>
+      <h2>Estadisticas iniciales</h2>
+      <div id="globalStats" class="stats-grid"></div>
+    </section>
+
+    <section class="card" id="filtersSection" hidden>
+      <h2>Seleccionar fila a contar</h2>
+      <div class="fila-toolbar">
+        <div id="filaButtons" class="fila-buttons"></div>
+        <div class="quick-actions">
+          <button id="nextPendingBtn" type="button" disabled>Siguiente pendiente</button>
+          <button id="diffOnlyBtn" type="button" disabled>Solo diferencias: OFF</button>
+        </div>
+      </div>
+      <div class="search-row">
+        <label for="searchInput" class="search-label">Buscar articulo</label>
+        <div class="search-controls">
+          <input id="searchInput" type="search" placeholder="Codigo, nombre o posicion" autocomplete="off" />
+          <button id="clearSearchBtn" type="button">Limpiar busqueda</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="progressSection" hidden>
+      <h2>Avance de conteo</h2>
+      <div id="progressStats" class="stats-grid"></div>
+    </section>
+
+    <section class="card" id="tableSection" hidden>
+      <h2>Captura de conteo fisico</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Codigo</th>
+              <th>Nombre</th>
+              <th>Posicion</th>
+              <th>Existencia</th>
+              <th>Conteo fisico</th>
+              <th>Sobrante</th>
+              <th>Faltante</th>
+              <th>Estatus</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+      <div id="emptyTableMessage" class="muted" hidden>No hay registros para mostrar.</div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
